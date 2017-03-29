@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.drools.ddoyle.dmn.signavio</groupId>
+	<artifactId>dmn-signavio-summit</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Drools :: DMN :: Signavio</name>
+	<description>Drools DMN Signavio demo</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>dmn-signavio-summit-demo</module>
+	</modules>
+
+	<properties>
+		<version.org.kie>7.0.0-SNAPSHOT</version.org.kie>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-api</artifactId>
+				<version>${version.org.kie}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-dmn-api</artifactId>
+				<version>${version.org.kie}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>drools-core</artifactId>
+				<version>${version.org.kie}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-dmn-core</artifactId>
+				<version>${version.org.kie}</version>
+				<scope>compile</scope>
+			</dependency>
+			
+			
+		</dependencies>
+	</dependencyManagement>
+</project>
