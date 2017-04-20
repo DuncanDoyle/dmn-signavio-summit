@@ -21,7 +21,7 @@ import org.kie.dmn.core.api.DMNFactory;
 public class SignavioDmnTest {
 
 	@Test
-	public void testDmnCompilation() {
+	public void testDmnExecution() {
 		
 		DMNRuntime runtime = DMNRuntimeUtil.createRuntime("CreditRatingEdition.dmn", this.getClass());
 		DMNModel dmnModel = runtime.getModel(
