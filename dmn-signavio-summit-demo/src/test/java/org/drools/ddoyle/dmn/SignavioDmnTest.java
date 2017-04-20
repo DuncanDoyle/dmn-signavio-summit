@@ -1,7 +1,12 @@
 package org.drools.ddoyle.dmn;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.drools.ddoyle.dmn.util.DMNRuntimeUtil;
@@ -13,36 +18,53 @@ import org.kie.dmn.api.core.DMNResult;
 import org.kie.dmn.api.core.DMNRuntime;
 import org.kie.dmn.core.api.DMNFactory;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.hasEntry;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
-
 public class SignavioDmnTest {
 
 	@Test
 	public void testDmnCompilation() {
 
+		
+		
+		
 		DMNRuntime runtime = DMNRuntimeUtil.createRuntime("CreditRatingEdition.dmn", this.getClass());
 		DMNModel dmnModel = runtime.getModel(
-				"http://www.signavio.com/dmn/1.1/diagram/fb3bb7d0c13940e38ef1c6b8c0387999.xml", "CreditRatingEdition");
+				"http://www.signavio.com/dmn/1.1/diagram/6b8d52148ad8422ea99ef8ff3af960cb.xml", "CreditRatingEdition");
 		assertThat(dmnModel, notNullValue());
 		assertThat(formatMessages(dmnModel.getMessages()), dmnModel.hasErrors(), is(false));
 
 		DMNContext context = DMNFactory.newContext();
-		context.set("Monthly Salary", 1000);
+		/*
+		context.set("Bankruptcies", false);
+		context.set("Consumer Debts", 0);
+		context.set("Defaults", false);
+		context.set("FICO", 800);
+		context.set("Income", 14000);
+		context.set("Medical", 600);
+		context.set("Rent or Mortgage", 2200);
+		context.set("Settlements", false);
+		*/
+		
+		context.set("bankruptcies", false);
+		context.set("consumerDebt", 0);
+		context.set("defaults", false);
+		context.set("fICO", new BigDecimal(800));
+		context.set("income", 14000);
+		context.set("medical", 600);
+		context.set("rentOrMortgage", 2200);
+		context.set("settlements", false);
+		
+		
 
 		DMNResult dmnResult = runtime.evaluateAll(dmnModel, context);
-		assertThat(formatMessages(dmnResult.getMessages()), dmnModel.hasErrors(), is(false));
+		assertThat(formatMessages(dmnResult.getMessages()), dmnResult.hasErrors(), is(false));
 
 		DMNContext result = dmnResult.getContext();
 
-		assertThat(result.get("Yearly Salary"), is(new BigDecimal("12000")));
-
+		
+		Map<String, Object> determineInterestRate = (Map<String, Object>) result.get("determineInterestRate");
+		
+		assertThat(determineInterestRate.get("cardRate"), is(new BigDecimal("0.1")));
+		assertThat(determineInterestRate.get("score"), is(new BigDecimal("4")));
 	}
 
 	private String formatMessages(List<DMNMessage> messages) {

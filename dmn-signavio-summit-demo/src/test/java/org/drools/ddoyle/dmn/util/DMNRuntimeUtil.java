@@ -41,6 +41,7 @@ public final class DMNRuntimeUtil {
                 ks.getResources().newClassPathResource(resourceName, testClass));
 
         final DMNRuntime runtime = kieContainer.newKieSession().getKieRuntime(DMNRuntime.class);
+        runtime.addListener(createListener());
         Assert.assertNotNull(runtime);
         return runtime;
     }
