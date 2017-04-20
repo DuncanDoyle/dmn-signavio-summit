@@ -22,9 +22,6 @@ public class SignavioDmnTest {
 
 	@Test
 	public void testDmnCompilation() {
-
-		
-		
 		
 		DMNRuntime runtime = DMNRuntimeUtil.createRuntime("CreditRatingEdition.dmn", this.getClass());
 		DMNModel dmnModel = runtime.getModel(
@@ -43,15 +40,11 @@ public class SignavioDmnTest {
 		context.set("rentOrMortgage", 2200);
 		context.set("settlements", false);
 		
-
 		DMNResult dmnResult = runtime.evaluateAll(dmnModel, context);
 		assertThat(formatMessages(dmnResult.getMessages()), dmnResult.hasErrors(), is(false));
 
 		DMNContext result = dmnResult.getContext();
-
-		
 		Map<String, Object> determineInterestRate = (Map<String, Object>) result.get("determineInterestRate");
-		
 		assertThat(determineInterestRate.get("cardRate"), is(new BigDecimal("0.1")));
 		assertThat(determineInterestRate.get("score"), is(new BigDecimal("4")));
 	}
