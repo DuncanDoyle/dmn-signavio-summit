@@ -33,16 +33,6 @@ public class SignavioDmnTest {
 		assertThat(formatMessages(dmnModel.getMessages()), dmnModel.hasErrors(), is(false));
 
 		DMNContext context = DMNFactory.newContext();
-		/*
-		context.set("Bankruptcies", false);
-		context.set("Consumer Debts", 0);
-		context.set("Defaults", false);
-		context.set("FICO", 800);
-		context.set("Income", 14000);
-		context.set("Medical", 600);
-		context.set("Rent or Mortgage", 2200);
-		context.set("Settlements", false);
-		*/
 		
 		context.set("bankruptcies", false);
 		context.set("consumerDebt", 0);
@@ -52,7 +42,6 @@ public class SignavioDmnTest {
 		context.set("medical", 600);
 		context.set("rentOrMortgage", 2200);
 		context.set("settlements", false);
-		
 		
 
 		DMNResult dmnResult = runtime.evaluateAll(dmnModel, context);
